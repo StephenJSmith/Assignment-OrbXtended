@@ -1,0 +1,28 @@
+<input type="text" autofocus [(ngModel)]="simulator" (keyup.enter)="onSearch()" placeholder="Enter simulator [Enter]" />
+<button (click)="onSearch()">Search</button>
+
+<table class="products-list">
+  <tr class="header">
+    <th class="product-name">Product Name</th>
+    <th class="platform">Platform</th>
+    <th class="current-price">Current Price</th>
+    <th class="simulators">Simulators</th>
+  </tr>
+
+  <tr *ngFor="let product of products" class="row">
+    <td class="product-name">
+      <a href="{{product.link}}" target="_blank">
+        {{product.name}}
+      </a>
+    </td>
+    <td class="platform">
+      {{product.platform}}
+    </td>
+    <td class="current-price">
+      {{product.currentPrice | currency}}
+    </td>
+    <td class="simulators">
+      {{spaceProductSimulators(product.simulators)}}
+    </td>
+  </tr>
+</table>
