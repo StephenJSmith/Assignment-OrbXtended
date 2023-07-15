@@ -59,9 +59,10 @@ Additional work performed
   - ListProducts
   - ListProductsForSimulators
   - ListSimulators
+- string + int extension returning value or default
+- Return Products for passed query params: sort, order, skip and take
 
 TODO: 
-- Dynamic build expression tree for passed sort and order fields in ProductRepository
 - Return Result from Handler to API Controller incl error handling
 - Error/Exception Handling middleware
 - Extract data from JSON in seeding

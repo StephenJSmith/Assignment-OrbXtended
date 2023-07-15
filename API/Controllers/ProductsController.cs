@@ -2,6 +2,7 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Persistence;
 using Application.Products;
+using Application.Extensions;
 
 namespace API.Controllers;
 
@@ -45,31 +46,22 @@ public class ProductsController : BaseApiController
     return Ok(result);
   }
 
-  private string Coalesce(string stringValue, string defaultValue)
-  {
-    return !string.IsNullOrWhiteSpace(stringValue)
-      ? stringValue
-      : defaultValue;
-  }
-
-  private int Coalesce(int intValue, int defaultValue)
-  {
-    return intValue > 0
-      ? intValue
-      : defaultValue;
-  }
-
-  [HttpGet("paged/{simulator}")]
-  public async Task<ActionResult<List<Product>>> GetPagedProductsForSimulator(string simulator, string sort = "", string order = "", int skip = 0, int take = 0)
+  [HttpGet("page/{simulator}")]
+  public async Task<ActionResult<List<Product>>> GetPagedProductsForSimulator(
+    string simulator, 
+    string sort, 
+    string order, 
+    int skip, 
+    int take)
   {
 
     var page = new ListProductsForSimulator.Query
     {
       Simulator = simulator,
-      SortField = Coalesce(sort, _defaultSortField),
-      SortOrder = Coalesce(order, _defaultSortOrder),
-      SkipItems = Coalesce(skip, _defaultSkipItems),
-      TakeItems = Coalesce(take, _defaultTakeItems)
+      SortField = sort.OrDefaultValue(_defaultSortField),
+      SortOrder = order.OrDefaultValue(_defaultSortOrder),
+      SkipItems = skip.OrDefaultValue(_defaultSkipItems),
+      TakeItems = take.OrDefaultValue(_defaultTakeItems)
     };
 
     var result = await Mediator.Send(new ListProductsForSimulator.Query

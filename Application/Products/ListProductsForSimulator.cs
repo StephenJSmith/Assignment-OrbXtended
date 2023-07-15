@@ -22,7 +22,6 @@ public class ListProductsForSimulator
     public Handler(IProductsRepository repository)
     {
       _repository = repository;
-
     }
 
     public async Task<List<Product>> Handle(Query request, CancellationToken cancellationToken)

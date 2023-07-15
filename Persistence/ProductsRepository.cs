@@ -37,12 +37,50 @@ public class ProductsRepository : IProductsRepository
   public List<Product> GetTopProductsForSimulator(
     string simulator, string sortField, string sortOrder, int skipItems, int takeItems)
   {
-    // Dynamically build expression tree per passed sortField and sortOrder parameters
     var expression = _products
       .Where(p => p.Simulators.Any(s => s == simulator.ToLower()))
-      .OrderByDescending(p => p.CurrentPrice)
       .Skip(skipItems)
       .Take(takeItems);
+
+    switch (sortField.ToLower())
+    {
+      case "id":
+        if (sortOrder.ToLower() == "desc")
+        {
+          expression = expression.OrderByDescending(p => p.Id);          
+        } else {
+          expression = expression.OrderBy(p => p.Id);
+        }
+        break;
+
+      case "name":
+        if (sortOrder.ToLower() == "desc")
+        {
+          expression = expression.OrderByDescending(p => p.Name);          
+        } else {
+          expression = expression.OrderBy(p => p.Name);
+        }
+        break;
+
+      case "platform":
+        if (sortOrder.ToLower() == "desc")
+        {
+          expression = expression.OrderByDescending(p => p.Platform);          
+        } else {
+          expression = expression.OrderBy(p => p.Platform);
+        }
+        break;
+
+      default:
+        if (sortOrder.ToLower() == "asc")
+        {
+          expression = expression.OrderBy(p => p.CurrentPrice);
+        } else {
+          expression = expression.OrderByDescending(p => p.CurrentPrice);          
+        }
+
+        break;
+    }
 
     var results = expression
       .ToList();
