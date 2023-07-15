@@ -49,3 +49,19 @@ This file lists aspects that were out of scope for the following reasons
 - Hard coded API endpoints url into Angular service
 - Drop down list of selectable Simulators in place of typing it in on Angular form
 - Swagger endpoint definitions
+
+
+===================================
+Additional work performed
+
+- Async methods for IProductRepository
+- MediatR Handlers for 
+  - ListProducts
+  - ListProductsForSimulators
+  - ListSimulators
+
+TODO: 
+- Dynamic build expression tree for passed sort and order fields in ProductRepository
+- Return Result from Handler to API Controller incl error handling
+- Error/Exception Handling middleware
+- Extract data from JSON in seeding

@@ -29,6 +29,11 @@ public class ProductsRepository : IProductsRepository
     return _products.ToList();
   }
 
+  public Task<List<Product>> GetProductsAsync()
+  {
+    return Task.Run(() => _products.ToList());
+  }
+
   public List<Product> GetTopProductsForSimulator(
     string simulator, string sortField, string sortOrder, int skipItems, int takeItems)
   {
@@ -45,19 +50,29 @@ public class ProductsRepository : IProductsRepository
     return results;
   }
 
-    public List<string> GetSimulators()
+  public Task<List<Product>> GetTopProductsForSimulatorAsync(string simulator, string sortField, string sortOrder, int skipItems, int takeItems)
   {
-      return _simulators.ToList();
+    return Task.Run(() => GetTopProductsForSimulator(simulator, sortField, sortOrder, skipItems, takeItems));
   }
 
-   private List<string> GetSeededSimulators()
-    {
-        return new List<string> {
+  public List<string> GetSimulators()
+  {
+    return _simulators.ToList();
+  }
+
+  public Task<List<string>> GetSimulatorsAsync()
+  {
+    return Task.Run(() => GetSimulators());
+  }
+
+  private List<string> GetSeededSimulators()
+  {
+    return new List<string> {
                       Fsx, Fsxe,
                       P3dv1, P3dv2, P3dv2, P3dv3, P3dv4, P3dv5,
                       Msfs, Xp11, Afs2
         };
-    }
+  }
 
   private static List<Product> GetSeededProducts()
   {
@@ -387,5 +402,4 @@ public class ProductsRepository : IProductsRepository
 
     return products;
   }
-
 }

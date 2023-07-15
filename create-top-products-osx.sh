@@ -3,8 +3,8 @@ green="\033[1;32m"
 reset="\033[m"
 
 echo "About to create the directory"
-mkdir TopProducts
-cd TopProducts
+# mkdir TopProducts
+# cd TopProducts
 
 echo -e "${green}Creating solution and projects${reset}"
 dotnet new sln

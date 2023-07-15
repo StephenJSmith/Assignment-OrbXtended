@@ -1,4 +1,6 @@
 using Persistence;
+using Application.Products;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200");
     });
 });
+builder.Services.AddMediatR(typeof(ListProducts.Query));
 
 var app = builder.Build();
 
