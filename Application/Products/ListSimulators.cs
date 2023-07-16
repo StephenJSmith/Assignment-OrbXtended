@@ -1,3 +1,4 @@
+using Application.Core;
 using MediatR;
 using Persistence;
 
@@ -5,9 +6,9 @@ namespace Application.Products;
 
 public class ListSimulators
 {
-  public class Query : IRequest<List<string>> { }
+  public class Query : IRequest<Result<List<string>>> { }
 
-  public class Handler : IRequestHandler<Query, List<string>>
+  public class Handler : IRequestHandler<Query, Result<List<string>>>
   {
     private readonly IProductsRepository _repository;
     public Handler(IProductsRepository repository)
@@ -15,9 +16,9 @@ public class ListSimulators
       _repository = repository;
     }
 
-    public async Task<List<string>> Handle(Query request, CancellationToken cancellationToken)
+    public async Task<Result<List<string>>> Handle(Query request, CancellationToken cancellationToken)
     {
-      return await _repository.GetSimulatorsAsync();
+      return Result<List<string>>.Success(await _repository.GetSimulatorsAsync());
     }
   }
 }

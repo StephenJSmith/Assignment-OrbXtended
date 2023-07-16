@@ -59,10 +59,16 @@ Additional work performed
   - ListProducts
   - ListProductsForSimulators
   - ListSimulators
-- string + int extension returning value or default
+- string + int extension methods returning value or default
 - Return Products for passed query params: sort, order, skip and take
+- Result object for returning Success/Failure result from handlers to API controller endpoints
+- AppException and ExceptionMiddleware added to middleware pipeline
 
 TODO: 
-- Return Result from Handler to API Controller incl error handling
-- Error/Exception Handling middleware
-- Extract data from JSON in seeding
+- ProductsController.GetPagedProductsForSimulator Dto for modelbinding
+- Return list of simulators to client and populate simulators dropdown on Top Products form
+- Update Angular client to include ordering & pagination
+- Extract data
+  - factory methods per simuators source type
+  - from JSON in seeding
+  - EF relationship and use InMemoryProvider

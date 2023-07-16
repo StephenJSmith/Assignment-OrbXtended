@@ -25,15 +25,14 @@ public class ProductsController : BaseApiController
   }
 
   [HttpGet]
-  public async Task<ActionResult<List<Product>>> GetProducts()
+  public async Task<IActionResult> GetProducts()
   {
-    return await Mediator.Send(new ListProducts.Query());
+    return HandleResult(await Mediator.Send(new ListProducts.Query()));
   }
 
   [HttpGet("top/{simulator}")]
   public async Task<ActionResult<List<Product>>> GetTopProductsForSimulator(string simulator)
   {
-
     var result = await Mediator.Send(new ListProductsForSimulator.Query
     {
       Simulator = simulator,
@@ -43,11 +42,11 @@ public class ProductsController : BaseApiController
       TakeItems = _defaultTakeItems
     });
 
-    return Ok(result);
+    return HandleResult(result);
   }
 
   [HttpGet("page/{simulator}")]
-  public async Task<ActionResult<List<Product>>> GetPagedProductsForSimulator(
+  public async Task<IActionResult> GetPagedProductsForSimulator(
     string simulator, 
     string sort, 
     string order, 
@@ -73,12 +72,12 @@ public class ProductsController : BaseApiController
       TakeItems = page.TakeItems
     });
 
-    return Ok(result);
+    return HandleResult(result);
   }
 
   [HttpGet("simulators")]
-  public async Task<ActionResult<List<string>>> GetSimulators()
+  public async Task<IActionResult> GetSimulators()
   {
-    return await Mediator.Send(new ListSimulators.Query());
+    return HandleResult(await Mediator.Send(new ListSimulators.Query()));
   }
 }
