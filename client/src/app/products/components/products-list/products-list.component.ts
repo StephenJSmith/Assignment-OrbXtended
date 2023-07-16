@@ -9,19 +9,27 @@ import { IProduct } from '../../models/product';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
-  private subscription: Subscription |null = null;
+  private subscriptions: Subscription[] = [];
   simulator: string = '';
   private sortField: string = 'currentPrice';
   private sortOrder: string = 'desc';
   products: IProduct[] = [];
+  simulators: string[] = [];
 
   constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this.productService
+        .getSimulators()
+        .subscribe((simulators: string[]) =>{ 
+          this.simulators = simulators;
+        })
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   onSearch(): void {
@@ -31,12 +39,10 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       return;
     };
 
-    this.subscription = this.productService
-      .getProductsList(this.simulator, this.sortField, this.sortOrder)
-      .subscribe((products: IProduct[]) => this.products = products);
-  }
-
-  spaceProductSimulators(simulators: string[]): string {
-    return simulators.join(', ');
+    this.subscriptions.push(
+      this.productService
+        .getProducts(this.simulator, this.sortField, this.sortOrder)
+        .subscribe((products: IProduct[]) => this.products = products)
+      );
   }
 }

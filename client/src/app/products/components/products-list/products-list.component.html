@@ -1,4 +1,9 @@
-<input type="text" autofocus [(ngModel)]="simulator" (keyup.enter)="onSearch()" placeholder="Enter simulator [Enter]" />
+<select autofocus class="search-simulator" [(ngModel)]="simulator" (change)="onSearch()" (keyup.enter)="onSearch()">
+  <option></option>
+  <option *ngFor="let sim of simulators">
+    {{sim}}
+  </option>
+</select>
 <button (click)="onSearch()">Search</button>
 
 <table class="products-list">
@@ -22,7 +27,7 @@
       {{product.currentPrice | currency}}
     </td>
     <td class="simulators">
-      {{spaceProductSimulators(product.simulators)}}
+      {{product.simulators | csvSpacer}}
     </td>
   </tr>
 </table>

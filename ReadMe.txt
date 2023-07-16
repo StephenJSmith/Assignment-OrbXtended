@@ -63,6 +63,8 @@ Additional work performed
 - Return Products for passed query params: sort, order, skip and take
 - Result object for returning Success/Failure result from handlers to API controller endpoints
 - AppException and ExceptionMiddleware added to middleware pipeline
+- csvSpacer custom Angular pipe - space between values in a csv list
+- products.service getSimulators() list for simulators dropdown selection in Angular form
 
 TODO: 
 - ProductsController.GetPagedProductsForSimulator Dto for modelbinding
@@ -72,3 +74,5 @@ TODO:
   - factory methods per simuators source type
   - from JSON in seeding
   - EF relationship and use InMemoryProvider
+- Angular unit testing
+
