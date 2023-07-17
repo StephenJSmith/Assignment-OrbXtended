@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Subscription } from 'rxjs';
 import { IProduct } from '../../models/product';
+import { IPagination } from '../../models/pagination';
 
 @Component({
   selector: 'app-products-list',
@@ -15,6 +16,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   private sortOrder: string = 'desc';
   products: IProduct[] = [];
   simulators: string[] = [];
+  pagination: IPagination | null = null;
 
   constructor(private productService: ProductsService) {}
 
@@ -24,6 +26,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .getSimulators()
         .subscribe((simulators: string[]) =>{ 
           this.simulators = simulators;
+          this.pagination = this.productService.pagination;
         })
     );
   }

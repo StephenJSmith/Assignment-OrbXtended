@@ -3,15 +3,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../models/product';
 import { environment } from '../../../environments/environment.development';
+import { IPagination } from '../models/pagination';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+  public pagination: IPagination | null = null;
 
   private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
+
+  initialiseProductsPagination(): void {
+    const url = `${this.baseUrl}/products/initial`;
+
+    this.http.get<IPagination>(url)
+      .subscribe(response => this.pagination = {
+        sort: response.sort,
+        order: response.order,
+        skip: response.skip,
+        take: response.take
+      });
+  }
 
   getProducts(
     simulator: string, 

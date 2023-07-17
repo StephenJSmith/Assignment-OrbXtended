@@ -52,7 +52,7 @@ This file lists aspects that were out of scope for the following reasons
 
 
 ===================================
-Additional work performed
+Additional work performed ('Extended')
 
 - Async methods for IProductRepository
 - MediatR Handlers for 
@@ -65,14 +65,12 @@ Additional work performed
 - AppException and ExceptionMiddleware added to middleware pipeline
 - csvSpacer custom Angular pipe - space between values in a csv list
 - products.service getSimulators() list for simulators dropdown selection in Angular form
+- ProductsController.GetInitialPagination() returning initial pagination & sort settings called in app.component.ts
 
 TODO: 
-- ProductsController.GetPagedProductsForSimulator Dto for modelbinding
-- Return list of simulators to client and populate simulators dropdown on Top Products form
-- Update Angular client to include ordering & pagination
+- Complete Angular client to include ordering & pagination
+- ProductsController GetPagedProductsForSimulatorDto for model binding
 - Extract data
   - factory methods per simuators source type
   - from JSON in seeding
   - EF relationship and use InMemoryProvider
-- Angular unit testing
-

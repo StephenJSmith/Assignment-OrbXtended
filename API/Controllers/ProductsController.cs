@@ -1,6 +1,6 @@
 using Domain;
+using API.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Persistence;
 using Application.Products;
 using Application.Extensions;
 
@@ -24,7 +24,19 @@ public class ProductsController : BaseApiController
     _defaultTakeItems = int.Parse(_configuration["TopProducts:TakeItems"]);
   }
 
-  [HttpGet]
+  [HttpGet("initial")]
+  public ActionResult<InitialPaginationDto> GetInitialPagination() {
+    var result = new InitialPaginationDto {
+      Sort = _defaultSortField,
+      Order = _defaultSortOrder,
+      Skip = _defaultSkipItems,
+      Take = _defaultTakeItems
+    };
+
+    return Ok(result);
+  }
+
+  [HttpGet()]
   public async Task<IActionResult> GetProducts()
   {
     return HandleResult(await Mediator.Send(new ListProducts.Query()));
@@ -53,7 +65,6 @@ public class ProductsController : BaseApiController
     int skip, 
     int take)
   {
-
     var page = new ListProductsForSimulator.Query
     {
       Simulator = simulator,
@@ -70,6 +81,20 @@ public class ProductsController : BaseApiController
       SortOrder = page.SortOrder,
       SkipItems = page.SkipItems,
       TakeItems = page.TakeItems
+    });
+
+    return HandleResult(result);
+  }
+
+  [HttpGet("dto/{simulator}")]
+  public async Task<IActionResult> GetDtoProductsForSimulator(GetPagedProductsForSimulatorDto dto) {
+    var result = await Mediator.Send(new ListProductsForSimulator.Query
+    {
+      Simulator = dto.Simulator,
+      SortField = dto.Sort,
+      SortOrder = dto.Order,
+      SkipItems = dto.Skip,
+      TakeItems = dto.Take
     });
 
     return HandleResult(result);
