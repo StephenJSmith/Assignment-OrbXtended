@@ -17,6 +17,7 @@ public class ProductsSeedFactory
 
   private static string FsxAndPrepar3d = "FSX & Prepar3D";
   private static string Prepar3Dv4 = "Prepar3D v4";
+  private static string Prepar3Dv5 = "Prepar3D v5";
   private static string MsFlightSimulator = "Microsoft Flight Simulator";
   private static string XPlane11 = "X-Plane 11";
 
@@ -28,8 +29,16 @@ public class ProductsSeedFactory
     return $"https://orbxdirect.com/product/{segment}";
   }
 
+  private static string GetLinkWithIcao(string icao) {
+    return $"https://orbxdirect.com/product/{icao.ToLower()}";
+  }
+
   private static string GetLinkMsfs(string name) => $"{GetLink(name)}-msfs";
+  private static string GetLinkMsfsWithIcao(string icao) => $"{GetLinkWithIcao(icao)}-msfs";
   private static string GetLinkXp11(string name) => $"{GetLink(name)}-xp11";
+  private static string GetLinkXp11WithIcao(string icao) => $"{GetLinkWithIcao(icao)}-xp11";
+  private static string GetIcao(string name) => name.Split(' ')[0].ToLower();
+  private static string GetNameWithoutIcao(string name) => name[(name.Split(' ')[0].Length + 1)..];
 
   public static List<Product> GetProducts()
   {
@@ -57,7 +66,24 @@ public class ProductsSeedFactory
       FsxAndPrepar3dPlatform(94, "77S Creswell (Hobby Field)", 34.95m),
       FsxAndPrepar3dPlatform(95, "7S3 Stark's Twin Oaks Airpark", 32.95m),
       XPlane11Platform(305, "7S3 Stark's Twin Oaks Airpark", 32.95m),
-      FsxAndPrepar3dPlatform(305, "7WA3 West Wind Airport")
+      FsxAndPrepar3dPlatform(146, "7WA3 West Wind Airport"),
+      FsxAndPrepar3dPlatform(139,  "AYEO Emo Mission"),
+      FsxAndPrepar3dPlatform(5,  "AYPY Jacksons International Airport", 39.95m),
+      FsxAndPrepar3dPlatformExclV5(147,  "CAC8 Nanaimo Water Aerodrome"),
+      Prepar3Dv4Platform_3_4(269, "CAE3 Campbell River Water Aerodrome"),
+      FsxAndPrepar3dPlatformExclV5(189, "CAG8 Pender Harbour Seaplane Base"),
+      FsxAndPrepar3dPlatform(176, "CAX6 Ganges Water Aerodrome"),
+      FsxAndPrepar3dPlatform(96, "CEF4 Airdrie Airpark", 32.95m),
+      FsxAndPrepar3dPlatform(148, "CEJ4 Claresholm Industrial Airport"),
+      FsxAndPrepar3dPlatform(149, "CEN4 High River Regional Airport"),
+      MsFlightSimulatorPlatform(524, "WSSS Singapore Changi Airport", 18.99m, "cloudsurf-wsss-msfs"),
+      FsxAndPrepar3dPlatformExclV5(24, "CNK4 Parry Sound Airport", 26.95m),
+      FsxAndPrepar3dPlatform(97, "CYBD Bella Coola Airport", 34.95m),
+      FsxAndPrepar3dPlatform(98, "CYSE Squamish Airport", 34.95m),
+      FsxAndPrepar3dPlatform(99, "CZST Stewart Airport", 34.95m),
+      Prepar3Dv5Platform(500,  "EGGP Liverpool John Lennon Airport", 34.95m),
+      MsFlightSimulatorPlatform(507,  "EGGP Liverpool John Lennon Airport", 24m, "digitaldesign-eggp"),
+      XPlane11Platform(499,  "EGGP Liverpool John Lennon Airport", 24m, "digitaldesign-eggp"),
     };
 
     return products;
@@ -68,7 +94,8 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Name = name,
+      Icao = GetIcao(name),
+      Name = GetNameWithoutIcao(name),
       Platform = FsxAndPrepar3d,
       CurrentPrice = currentPrice,
       Link = GetLink(name),
@@ -86,7 +113,8 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Name = name,
+      Icao = GetIcao(name),
+      Name = GetNameWithoutIcao(name),
       Platform = FsxAndPrepar3d,
       CurrentPrice = currentPrice,
       Link = GetLink(name),
@@ -104,7 +132,8 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Name = name,
+      Icao = GetIcao(name),
+      Name = GetNameWithoutIcao(name),
       Platform = Prepar3Dv4,
       CurrentPrice = currentPrice,
       Link = GetLink(name),
@@ -116,15 +145,42 @@ public class ProductsSeedFactory
     return product;
   }
 
-  public static Product MsFlightSimulatorPlatform(int id, string name, decimal currentPrice)
+  public static Product Prepar3Dv5Platform(int id, string name, decimal currentPrice, string icao = null)
   {
     var product = new Product
     {
       Id = id,
-      Name = name,
+      Icao = string.IsNullOrEmpty(icao) 
+        ? GetIcao(name) 
+        : icao,
+      Name = GetNameWithoutIcao(name),
+      Platform = Prepar3Dv5,
+      CurrentPrice = currentPrice,
+      Link = string.IsNullOrEmpty(icao) 
+      ? GetLinkMsfs(name) 
+      : GetLinkWithIcao(icao),
+      Simulators = new List<string> {
+        P3dv5
+      }
+    };
+
+    return product;
+  }
+
+  public static Product MsFlightSimulatorPlatform(int id, string name, decimal currentPrice, string icao = null)
+  {
+    var product = new Product
+    {
+      Id = id,
+      Icao = string.IsNullOrEmpty(icao) 
+        ? GetIcao(name) 
+        : icao,
+      Name = GetNameWithoutIcao(name),
       Platform = MsFlightSimulator,
       CurrentPrice = currentPrice,
-      Link = GetLinkMsfs(name),
+      Link = string.IsNullOrEmpty(icao) 
+      ? GetLinkMsfs(name) 
+      : GetLinkMsfsWithIcao(icao),
       Simulators = new List<string> {
         Msfs
       }
@@ -133,15 +189,20 @@ public class ProductsSeedFactory
     return product;
   }
 
-  public static Product XPlane11Platform(int id, string name, decimal currentPrice)
+  public static Product XPlane11Platform(int id, string name, decimal currentPrice, string icao = null)
   {
     var product = new Product
     {
       Id = id,
-      Name = name,
+      Icao = string.IsNullOrEmpty(icao) 
+        ? GetIcao(name) 
+        : icao,
+      Name = GetNameWithoutIcao(name),
       Platform = MsFlightSimulator,
       CurrentPrice = currentPrice,
-      Link = GetLinkXp11(name),
+      Link = string.IsNullOrEmpty(icao) 
+      ? GetLinkXp11(name) 
+      : GetLinkXp11WithIcao(icao),
       Simulators = new List<string> {
         Xp11
       }

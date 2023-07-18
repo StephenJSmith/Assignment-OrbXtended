@@ -63,6 +63,15 @@ public class ProductsRepository : IProductsRepository
         }
         break;
 
+      case "icao":
+        if (sortOrder.ToLower() == "desc")
+        {
+          expression = expression.OrderByDescending(p => p.Icao);
+        } else {
+          expression = expression.OrderBy(p => p.Icao);
+        }
+        break;
+
       case "platform":
         if (sortOrder.ToLower() == "desc")
         {

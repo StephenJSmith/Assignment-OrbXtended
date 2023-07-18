@@ -66,9 +66,10 @@ Additional work performed ('Extended')
 - csvSpacer custom Angular pipe - space between values in a csv list
 - products.service getSimulators() list for simulators dropdown selection in Angular form
 - ProductsController.GetInitialPagination() returning initial pagination & sort settings called in app.component.ts
+- Extract ICAO field from Name input
 
 TODO: 
-- Complete Angular client to include ordering & pagination
+- Complete Angular client to include ordering & pagination and list of sortable fields
 - ProductsController GetPagedProductsForSimulatorDto for model binding
 - Extract data
   - factory methods per simuators source type

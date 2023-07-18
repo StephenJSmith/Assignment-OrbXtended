@@ -9,6 +9,7 @@
 <table class="products-list">
   <tr class="header">
     <th class="product-name">Product Name</th>
+    <th class="icao">ICAO</th>
     <th class="platform">Platform</th>
     <th class="current-price">Current Price</th>
     <th class="simulators">Simulators</th>
@@ -19,6 +20,9 @@
       <a href="{{product.link}}" target="_blank">
         {{product.name}}
       </a>
+    </td>
+    <td class="icao">
+      {{product.icao}}
     </td>
     <td class="platform">
       {{product.platform}}
