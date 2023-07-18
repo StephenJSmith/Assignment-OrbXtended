@@ -20,7 +20,8 @@ public class ProductsRepository : IProductsRepository
 
   public ProductsRepository()
   {
-    _products = GetSeededProducts();
+    // _products = GetSeededProducts();
+    _products = ProductsSeedFactory.GetProducts();
     _simulators = GetSeededSimulators();
   }
 
@@ -174,7 +175,7 @@ public class ProductsRepository : IProductsRepository
                     Name = "1S2 Darrington Municipal Airport",
                     Platform =  "X-Plane 11",
                     CurrentPrice = 32.95m,
-                    Link = "https://orbxdirect.com/product/1s2-msfs",
+                    Link = "https://orbxdirect.com/product/1s2-xp11",
                     Simulators = new List<string> {
                       Xp11
                     }
@@ -293,7 +294,7 @@ public class ProductsRepository : IProductsRepository
                     Link = "https://orbxdirect.com/product/65s",
                     Simulators = new List<string> {
                       Fsx, Fsxe,
-                      P3dv1, P3dv2, P3dv2, P3dv3, P3dv4
+                      P3dv1, P3dv2, P3dv3, P3dv4
                     }
                 },
                 new Product {
@@ -304,7 +305,7 @@ public class ProductsRepository : IProductsRepository
                     Link = "https://orbxdirect.com/product/74s",
                     Simulators = new List<string> {
                       Fsx, Fsxe,
-                      P3dv1, P3dv2, P3dv2, P3dv3, P3dv4
+                      P3dv1, P3dv2, P3dv3, P3dv4
                     }
                 },
                 new Product {
