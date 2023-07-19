@@ -67,6 +67,7 @@ Additional work performed ('Extended')
 - products.service getSimulators() list for simulators dropdown selection in Angular form
 - ProductsController.GetInitialPagination() returning initial pagination & sort settings called in app.component.ts
 - Extract ICAO field from Name input
+- Initial pagination configuration including sortable fields and display names - Client and Server
 
 TODO: 
 - Complete Angular client to include ordering & pagination and list of sortable fields
