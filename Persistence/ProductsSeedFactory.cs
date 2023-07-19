@@ -17,6 +17,7 @@ public class ProductsSeedFactory
 
   private static string FsxAndPrepar3d = "FSX & Prepar3D";
   private static string Prepar3Dv4 = "Prepar3D v4";
+  private static string Prepara3Dv4Plus = "Prepar3D v4+";
   private static string Prepar3Dv5 = "Prepar3D v5";
   private static string MsFlightSimulator = "Microsoft Flight Simulator";
   private static string XPlane11 = "X-Plane 11";
@@ -84,6 +85,22 @@ public class ProductsSeedFactory
       Prepar3Dv5Platform(500,  "EGGP Liverpool John Lennon Airport", 34.95m),
       MsFlightSimulatorPlatform(507,  "EGGP Liverpool John Lennon Airport", 24m, "digitaldesign-eggp"),
       XPlane11Platform(499,  "EGGP Liverpool John Lennon Airport", 24m, "digitaldesign-eggp"),
+      Prepar3Dv4Pluslatform(508, "LFLL Lyon–Saint-Exupéry Airport", 37m, "digitaldesign-lfll"),
+      XPlane11Platform(509, "LFLL Lyon–Saint-Exupéry Airport", 30m, "digitaldesign-lfll"),
+      Prepar3Dv4Pluslatform(520, "LOWS Salzburg Airport", 31m, "digitaldesign-lows"),
+      MsFlightSimulatorPlatform(475, "LOWS Salzburg Airport", 28.4m, "digitaldesign-lows"),
+      Prepar3Dv4Pluslatform(528, "RJAA Narita International Airport", 31.95m, "drzewiecki-rjaa"),
+      XPlane11Platform(529, "RJAA Narita International Airport", 31.95m, "drzewiecki-rjaa"),
+      MsFlightSimulatorPlatform(514,  "Drzewiecki Design Warsaw Airfields", 0, "drzewiecki-warsaw-airfields"),
+      FsxAndPrepar3dPlatform(140, "EDBH Barth Stralsund Airport", 0),
+      FsxAndPrepar3dPlatformExclV5(25, "EDBJ Jena Schoengleina Airport", 26.95m),
+      FsxAndPrepar3dPlatform(141, "EDCG Rügen Airport", 0),
+      FsxAndPrepar3dPlatform(142, "EDVR Rinteln Airport", 0),
+      FsxAndPrepar3dPlatform(26, "EDVY Porta Westfalica Airport", 26.95m),
+      XPlane11Platform(266, "EG20 Clench Common Field", 0),
+      XPlane11Platform(422, "EG41 Fishburn Airfield", 0),
+      XPlane11PlatformNormalLink(219, "EGCB Manchester City Airport and Heliport (Barton)", 32.95m)
+
     };
 
     return products;
@@ -167,6 +184,28 @@ public class ProductsSeedFactory
     return product;
   }
 
+  public static Product Prepar3Dv4Pluslatform(int id, string name, decimal currentPrice, string icao = null)
+  {
+    var product = new Product
+    {
+      Id = id,
+      Icao = string.IsNullOrEmpty(icao) 
+        ? GetIcao(name) 
+        : icao,
+      Name = GetNameWithoutIcao(name),
+      Platform = Prepar3Dv5,
+      CurrentPrice = currentPrice,
+      Link = string.IsNullOrEmpty(icao) 
+      ? GetLinkMsfs(name) 
+      : GetLinkWithIcao(icao),
+      Simulators = new List<string> {
+        P3dv4, P3dv5
+      }
+    };
+
+    return product;
+  }
+
   public static Product MsFlightSimulatorPlatform(int id, string name, decimal currentPrice, string icao = null)
   {
     var product = new Product
@@ -198,11 +237,29 @@ public class ProductsSeedFactory
         ? GetIcao(name) 
         : icao,
       Name = GetNameWithoutIcao(name),
-      Platform = MsFlightSimulator,
+      Platform = XPlane11,
       CurrentPrice = currentPrice,
       Link = string.IsNullOrEmpty(icao) 
       ? GetLinkXp11(name) 
       : GetLinkXp11WithIcao(icao),
+      Simulators = new List<string> {
+        Xp11
+      }
+    };
+
+    return product;
+  }
+
+  public static Product XPlane11PlatformNormalLink(int id, string name, decimal currentPrice)
+  {
+    var product = new Product
+    {
+      Id = id,
+      Icao = GetIcao(name),
+      Name = GetNameWithoutIcao(name),
+      Platform = XPlane11,
+      CurrentPrice = currentPrice,
+      Link = GetLink(name),
       Simulators = new List<string> {
         Xp11
       }

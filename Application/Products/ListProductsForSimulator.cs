@@ -2,7 +2,6 @@ using Application.Core;
 using Domain;
 using MediatR;
 using Persistence;
-using System.Threading;
 
 namespace Application.Products;
 

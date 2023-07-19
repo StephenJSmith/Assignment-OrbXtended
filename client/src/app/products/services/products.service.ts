@@ -20,7 +20,7 @@ export class ProductsService {
 
     this.http.get<IPagination>(url)
       .subscribe(response => this.pagination = {
-        sort: response.sort,
+        sortableFields: response.sortableFields,
         order: response.order,
         skip: response.skip,
         take: response.take

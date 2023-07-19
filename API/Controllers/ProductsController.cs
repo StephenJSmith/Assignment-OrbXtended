@@ -25,15 +25,15 @@ public class ProductsController : BaseApiController
   }
 
   [HttpGet("initial")]
-  public ActionResult<InitialPaginationDto> GetInitialPagination() {
-    var result = new InitialPaginationDto {
-      Sort = _defaultSortField,
-      Order = _defaultSortOrder,
-      Skip = _defaultSkipItems,
-      Take = _defaultTakeItems
-    };
+  public async Task<IActionResult> GetInitialPaginationFromDictionary() {
+    var result = await Mediator.Send(new InitialPagination.Query {
+      DefaultSortField = _defaultSortField,
+      DefaultSortOrder = _defaultSortOrder,
+      DefaultSkipItems = _defaultSkipItems,
+      DefaultTakeItems = _defaultTakeItems
+    });
 
-    return Ok(result);
+    return HandleResult(result);
   }
 
   [HttpGet()]
