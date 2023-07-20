@@ -65,15 +65,14 @@ Additional work performed ('Extended')
 - AppException and ExceptionMiddleware added to middleware pipeline
 - csvSpacer custom Angular pipe - space between values in a csv list
 - products.service getSimulators() list for simulators dropdown selection in Angular form
-- ProductsController.GetInitialPagination() returning initial pagination & sort settings called in app.component.ts
 - Extract ICAO field from Name input
-- Initial pagination configuration including sortable fields and display names - Client and Server
-- Sort Field, Sort Order, Prev & Next Page, Skip and Take fields on Angular form
+- Sort Field, Sort Order, First, Prev & Next Page, Skip and Take fields on Angular form
 - Product with Name and Airport fields - Airport without Icao prefix - BOTH sortable fields
+- ProductsSettings endpoint returning simulators, initial pagination and sort settings
+  - Both server and client
 
 TODO: 
 - Complete Angular client to include ordering & pagination and list of sortable fields
-- ProductsController GetPagedProductsForSimulatorDto for model binding
 - Extract data
   - factory methods per simuators source type
   - from JSON in seeding

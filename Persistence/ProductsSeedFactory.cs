@@ -99,8 +99,16 @@ public class ProductsSeedFactory
       FsxAndPrepar3dPlatform(26, "EDVY Porta Westfalica Airport", 26.95m),
       XPlane11Platform(266, "EG20 Clench Common Field", 0),
       XPlane11Platform(422, "EG41 Fishburn Airfield", 0),
-      XPlane11PlatformNormalLink(219, "EGCB Manchester City Airport and Heliport (Barton)", 32.95m)
-
+      XPlane11PlatformNormalLink(219, "EGCB Manchester City Airport and Heliport (Barton)", 32.95m),
+      XPlane11Platform(372, "EGCK Caernarfon Airport", 29.95m),
+      FsxAndPrepar3dPlatform(49, "EGCW Welshpool Airport", 26.95m),
+      XPlane11Platform(256,  "EGFF Cardiff Airport", 34.95m),
+      FsxAndPrepar3dPlatform(50,  "EGFF Cardiff Airport", 26.95m),
+      XPlane11Platform(289, "EGHA Compton Abbas Airfield", 26.95m),
+      FsxAndPrepar3dPlatform(51, "EGHI Southampton Airport", 34.95m),
+      XPlane11Platform(252, "EGHI Southampton Airport", 34.95m),
+      FsxAndPrepar3dPlatform(52, "EGHP Popham Airfield", 26.95m),
+      XPlane11Platform(268, "EGHP Popham Airfield", 26.95m),
     };
 
     return products;

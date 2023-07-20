@@ -24,9 +24,9 @@ public class ProductsController : BaseApiController
     _defaultTakeItems = int.Parse(_configuration["TopProducts:TakeItems"]);
   }
 
-  [HttpGet("initial")]
-  public async Task<IActionResult> GetInitialPaginationFromDictionary() {
-    var result = await Mediator.Send(new InitialPagination.Query {
+  [HttpGet("settings")]
+  public async Task<IActionResult> GetProductsSettings() {
+    var result = await Mediator.Send(new ProductsSettings.Query {
       DefaultSortField = _defaultSortField,
       DefaultSortOrder = _defaultSortOrder,
       DefaultSkipItems = _defaultSkipItems,

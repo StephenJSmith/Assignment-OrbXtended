@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Subscription } from 'rxjs';
 import { IProduct } from '../../models/product';
-import { IPagination } from '../../models/pagination';
+import { IProductsSettings } from '../../models/products-settings';
 
 @Component({
   selector: 'app-products-list',
@@ -18,10 +18,15 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   take: number = 0;
   products: IProduct[] = [];
   simulators: string[] = [];
-  pagination: IPagination | null = null;
+  settings: IProductsSettings | null = null;
+  canShowSelections: boolean = false;
+
+  get canDisableFirstPage(): boolean {
+    return this.skip <= 0;
+  }
 
   get canDisablePrevPage(): boolean {
-    return this.skip === 0;
+    return this.skip <= 0;
   }
 
   constructor(private productService: ProductsService) {}
@@ -29,14 +34,14 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.productService
-        .getSimulators()
-        .subscribe((simulators: string[]) =>{ 
-          this.simulators = simulators;
-          this.pagination = this.productService.pagination;
-          this.sortField = this.pagination?.sortableFields.find(x => x.isSortField)?.field;
-          this.sortOrder = this.pagination?.order!;
-          this.skip = this.pagination?.skip!;
-          this.take = this.pagination?.take!;
+        .getProductsSettings()
+        .subscribe((settings: IProductsSettings) => {
+          this.settings = settings;
+          this.sortField = this.settings?.sortableFields.find(x => x.isSortField)?.field;
+          this.sortOrder = this.settings?.order!;
+          this.skip = this.settings?.skip!;
+          this.take = this.settings?.take!;
+          this.canShowSelections = true;
         })
     );
   }
@@ -57,6 +62,10 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .getProducts(this.simulator, this.sortField!, this.sortOrder)
         .subscribe((products: IProduct[]) => this.products = products)
       );
+  }
+
+  onFirstPage() {
+    this.skip = 0;
   }
 
   onPrevPage() {

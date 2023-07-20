@@ -1,4 +1,5 @@
-export interface IPagination {
+export interface IProductsSettings {
+  simulators: string;
   sortableFields: ISortableField[];
   order: string;
   skip: number;

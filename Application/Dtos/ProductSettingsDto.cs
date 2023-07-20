@@ -1,6 +1,7 @@
 namespace Application.Dtos;
 
-public class InitialPaginationDto {
+public class ProductSettingsDto {
+  public List<string> Simulators { get; set; }
   public List<SortableField> SortableFields { get; set; }
   public string Order { get; set; }
   public int Skip { get; set; }

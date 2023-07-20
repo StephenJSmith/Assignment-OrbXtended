@@ -1,4 +1,4 @@
-<div class="selections">
+<div *ngIf="canShowSelections" class="selections">
   <label class="search-simulator-label">Simulator</label>
   <select
     autofocus
@@ -8,24 +8,22 @@
     (keyup.enter)="onSearch()"
   >
     <option></option>
-    <option *ngFor="let sim of simulators">
+    <option *ngFor="let sim of settings?.simulators">
       {{ sim }}
     </option>
   </select>
 
   <label class="selection-label">Sort Field</label>
   <select 
-    *ngIf="pagination?.sortableFields" 
     class="sort-field" 
     [(ngModel)]="sortField">
     <option 
-      *ngFor="let sortField of pagination?.sortableFields"
+      *ngFor="let sortField of settings?.sortableFields"
       [ngValue]="sortField.field"
     >
       {{sortField.display}}
     </option>
   </select>
-  <label *ngIf="!pagination?.sortableFields" >{{sortField}}</label>
 
   <label class="selection-label">Sort Order</label>
   <select class="sort-order" [(ngModel)]="sortOrder">
@@ -34,6 +32,7 @@
   </select>
 
   <label class="selection-label">Page</label>
+  <button class="page-button" [disabled]="canDisableFirstPage" (click)="onFirstPage()">First</button>
   <button class="page-button" [disabled]="canDisablePrevPage" (click)="onPrevPage()">Prev</button>
   <button class="page-button" (click)="onNextPage()">Next</button>
 
