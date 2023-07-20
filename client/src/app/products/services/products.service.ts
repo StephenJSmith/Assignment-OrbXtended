@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IProduct } from '../models/product';
 import { environment } from '../../../environments/environment.development';
 import { IProductsSettings } from '../models/products-settings';
@@ -19,15 +19,32 @@ export class ProductsService {
     return this.http.get<IProductsSettings>(url);
   }
 
-  getProducts(
+  getTopProducts(
     simulator: string, 
     sortField: string, 
-    sortOrder: string): Observable<IProduct[]> {
+    sortOrder: string
+  ): Observable<IProduct[]> {
       const url = `${this.baseUrl}/products/top/${simulator}`;
-      // TODO: Include sortField and sortOrder parameters as query params
       
-      return this.http.get<IProduct[]>(url);
+    return this.http.get<IProduct[]>(url);
   };
+
+  getPagedProducts(
+    simulator: string, 
+    sortField: string, 
+    sortOrder: string,
+    skip: number,
+    take: number
+  ): Observable<IProduct[]> {
+    const url = `${this.baseUrl}/products/page/${simulator}`;
+    let params = new HttpParams();
+    params = params.append('sort', sortField);
+    params = params.append('order', sortOrder);
+    params = params.append('skip', skip.toString());
+    params = params.append('take', take.toString());
+
+    return this.http.get<IProduct[]>(url, {params});
+  }
 
   getSimulators(): Observable<string[]> {
     const url = `${this.baseUrl}/products/simulators`;

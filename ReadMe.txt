@@ -70,9 +70,10 @@ Additional work performed ('Extended')
 - Product with Name and Airport fields - Airport without Icao prefix - BOTH sortable fields
 - ProductsSettings endpoint returning simulators, initial pagination and sort settings
   - Both server and client
+- Call server-side paging endpoint
 
 TODO: 
-- Complete Angular client to include ordering & pagination and list of sortable fields
+- Validate returned data for each sort-pagination criteria
 - Extract data
   - factory methods per simuators source type
   - from JSON in seeding

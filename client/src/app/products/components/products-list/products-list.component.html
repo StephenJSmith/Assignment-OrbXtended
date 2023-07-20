@@ -13,7 +13,7 @@
     </option>
   </select>
 
-  <label class="selection-label">Sort Field</label>
+  <label class="sort-field-label">Sort</label>
   <select 
     class="sort-field" 
     [(ngModel)]="sortField">
@@ -25,13 +25,12 @@
     </option>
   </select>
 
-  <label class="selection-label">Sort Order</label>
   <select class="sort-order" [(ngModel)]="sortOrder">
     <option value="Asc">Asc</option>
     <option value="Desc">Desc</option>
   </select>
 
-  <label class="selection-label">Page</label>
+  <label class="page-label">Page</label>
   <button class="page-button" [disabled]="canDisableFirstPage" (click)="onFirstPage()">First</button>
   <button class="page-button" [disabled]="canDisablePrevPage" (click)="onPrevPage()">Prev</button>
   <button class="page-button" (click)="onNextPage()">Next</button>

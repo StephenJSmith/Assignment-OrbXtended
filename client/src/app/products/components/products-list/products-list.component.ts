@@ -17,7 +17,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   skip: number = 0;
   take: number = 0;
   products: IProduct[] = [];
-  simulators: string[] = [];
   settings: IProductsSettings | null = null;
   canShowSelections: boolean = false;
 
@@ -59,7 +58,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.productService
-        .getProducts(this.simulator, this.sortField!, this.sortOrder)
+        .getPagedProducts(
+          this.simulator, 
+          this.sortField!, 
+          this.sortOrder,
+          this.skip,
+          this.take)
         .subscribe((products: IProduct[]) => this.products = products)
       );
   }

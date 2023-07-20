@@ -24,6 +24,12 @@ public class ProductsController : BaseApiController
     _defaultTakeItems = int.Parse(_configuration["TopProducts:TakeItems"]);
   }
 
+  [HttpGet()]
+  public async Task<IActionResult> GetProducts()
+  {
+    return HandleResult(await Mediator.Send(new ListProducts.Query()));
+  }
+
   [HttpGet("settings")]
   public async Task<IActionResult> GetProductsSettings() {
     var result = await Mediator.Send(new ProductsSettings.Query {
@@ -34,12 +40,6 @@ public class ProductsController : BaseApiController
     });
 
     return HandleResult(result);
-  }
-
-  [HttpGet()]
-  public async Task<IActionResult> GetProducts()
-  {
-    return HandleResult(await Mediator.Send(new ListProducts.Query()));
   }
 
   [HttpGet("top/{simulator}")]
