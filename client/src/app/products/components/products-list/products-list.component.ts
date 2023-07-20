@@ -12,8 +12,8 @@ import { IPagination } from '../../models/pagination';
 export class ProductsListComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   simulator: string = '';
-  private sortField: string = 'currentPrice';
-  private sortOrder: string = 'desc';
+  public sortField: string | undefined = 'CurrentPrice';
+  public sortOrder: string = 'Desc';
   products: IProduct[] = [];
   simulators: string[] = [];
   pagination: IPagination | null = null;
@@ -27,6 +27,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .subscribe((simulators: string[]) =>{ 
           this.simulators = simulators;
           this.pagination = this.productService.pagination;
+          this.sortField = this.pagination?.sortableFields.find(x => x.isSortField)?.field;
+          this.sortOrder = this.pagination?.order!;
         })
     );
   }
@@ -44,7 +46,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.productService
-        .getProducts(this.simulator, this.sortField, this.sortOrder)
+        .getProducts(this.simulator, this.sortField!, this.sortOrder)
         .subscribe((products: IProduct[]) => this.products = products)
       );
   }

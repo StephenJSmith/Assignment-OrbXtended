@@ -1,13 +1,40 @@
+.selections {
+  display: flex;
+}
+
+.search-simulator-label {
+  margin-right: 12px;
+}
+
+.search-simulator {
+  width: 100px;
+}
+
+.selection-label {
+  margin-left: 24px;
+  margin-right: 12px;
+}
+
+.sort-field-label {
+  margin-left: 24px;
+  margin-right: 12px;
+}
+
+.sort-order-label {
+  margin-left: 24px;
+  margin-right: 12px;
+}
+
+.search-button {
+  margin-left: 24px;
+}
+
 .products-list {
   margin-top: 40px;
 }
 
 .header {
   padding-bottom: 20px;
-}
-
-.search-simulator {
-  width: 100px;
 }
 
 table {

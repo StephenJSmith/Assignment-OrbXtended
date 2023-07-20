@@ -68,6 +68,7 @@ Additional work performed ('Extended')
 - ProductsController.GetInitialPagination() returning initial pagination & sort settings called in app.component.ts
 - Extract ICAO field from Name input
 - Initial pagination configuration including sortable fields and display names - Client and Server
+- Start Sort Field, Sort Order, Skip and Take fields on Angular form
 
 TODO: 
 - Complete Angular client to include ordering & pagination and list of sortable fields

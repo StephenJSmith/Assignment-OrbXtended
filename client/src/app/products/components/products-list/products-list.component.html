@@ -1,14 +1,47 @@
-<select autofocus class="search-simulator" [(ngModel)]="simulator" (change)="onSearch()" (keyup.enter)="onSearch()">
-  <option></option>
-  <option *ngFor="let sim of simulators">
-    {{sim}}
-  </option>
-</select>
-<button (click)="onSearch()">Search</button>
+<div class="selections">
+  <label class="search-simulator-label">Simulator</label>
+  <select
+    autofocus
+    class="search-simulator"
+    [(ngModel)]="simulator"
+    (change)="onSearch()"
+    (keyup.enter)="onSearch()"
+  >
+    <option></option>
+    <option *ngFor="let sim of simulators">
+      {{ sim }}
+    </option>
+  </select>
+
+  <label class="selection-label">Sort Field</label>
+  <select 
+    *ngIf="pagination?.sortableFields" 
+    class="sort-field" 
+    [(ngModel)]="sortField">
+    <option 
+      *ngFor="let sortField of pagination?.sortableFields"
+      [ngValue]="sortField.field"
+    >
+      {{sortField.display}}
+    </option>
+  </select>
+  <label *ngIf="!pagination?.sortableFields" >{{sortField}}</label>
+
+  <label class="selection-label">Sort Order</label>
+  <select class="sort-order" [(ngModel)]="sortOrder">
+    <option value="Asc">Asc</option>
+    <option value="Desc">Desc</option>
+  </select>
+
+  <label class="selection-label">Skip</label>
+  <label class="selection-label">Take</label>
+
+  <button class="search-button" (click)="onSearch()">Search</button>
+</div>
 
 <table class="products-list">
   <tr class="header">
-    <th class="product-name">Product Name</th>
+    <th class="product-name">Name</th>
     <th class="icao">ICAO</th>
     <th class="platform">Platform</th>
     <th class="current-price">Current Price</th>
@@ -17,21 +50,21 @@
 
   <tr *ngFor="let product of products" class="row">
     <td class="product-name">
-      <a href="{{product.link}}" target="_blank">
-        {{product.name}}
+      <a href="{{ product.link }}" target="_blank">
+        {{ product.name }}
       </a>
     </td>
     <td class="icao">
-      {{product.icao}}
+      {{ product.icao }}
     </td>
     <td class="platform">
-      {{product.platform}}
+      {{ product.platform }}
     </td>
     <td class="current-price">
-      {{product.currentPrice | currency}}
+      {{ product.currentPrice | currency }}
     </td>
     <td class="simulators">
-      {{product.simulators | csvSpacer}}
+      {{ product.simulators | csvSpacer }}
     </td>
   </tr>
 </table>
