@@ -18,10 +18,13 @@ public class ProductsRepository : IProductsRepository
   private readonly List<Product> _products;
   private readonly List<string> _simulators;
 
-  private static string NameField = "Name";
-  private static string CurrentPriceField = "CurrentPrice";
-  private static string CurrentPriceDisplay = "Current Price";
-  private static string IcaoField = "ICAO";
+  private const string IdField = "Id";
+  private const string NameField = "Name";
+  private const string AirportField = "Airport";
+  private const string CurrentPriceField = "CurrentPrice";
+  private const string CurrentPriceDisplay = "Current Price";
+  private const string IcaoField = "ICAO";
+  private const string PlatformField = "Platform";
 
   public ProductsRepository()
   {
@@ -43,6 +46,7 @@ public class ProductsRepository : IProductsRepository
     return new Dictionary<string, string> {
       { CurrentPriceField, CurrentPriceDisplay },
       { NameField, NameField },
+      { AirportField, AirportField },
       { IcaoField, IcaoField }
     };
   }
@@ -79,6 +83,15 @@ public class ProductsRepository : IProductsRepository
           expression = expression.OrderByDescending(p => p.Name);          
         } else {
           expression = expression.OrderBy(p => p.Name);
+        }
+        break;
+
+      case "airport":
+        if (isDescendingOrder)
+        {
+          expression = expression.OrderByDescending(p => p.Airport);          
+        } else {
+          expression = expression.OrderBy(p => p.Airport);
         }
         break;
 

@@ -33,15 +33,23 @@
     <option value="Desc">Desc</option>
   </select>
 
+  <label class="selection-label">Page</label>
+  <button class="page-button" [disabled]="canDisablePrevPage" (click)="onPrevPage()">Prev</button>
+  <button class="page-button" (click)="onNextPage()">Next</button>
+
+  <label class="selection-label">Page Size</label>
+  <input class="numeric-input" type="number" min="0" [(ngModel)]="take" />
+
   <label class="selection-label">Skip</label>
-  <label class="selection-label">Take</label>
+  <input class="numeric-input" type="number" min="0" [(ngModel)]="skip" />
 
   <button class="search-button" (click)="onSearch()">Search</button>
 </div>
 
 <table class="products-list">
   <tr class="header">
-    <th class="product-name">Name</th>
+    <th class="product-name">Product Name</th>
+    <th class="airport">Airport</th>
     <th class="icao">ICAO</th>
     <th class="platform">Platform</th>
     <th class="current-price">Current Price</th>
@@ -52,6 +60,11 @@
     <td class="product-name">
       <a href="{{ product.link }}" target="_blank">
         {{ product.name }}
+      </a>
+    </td>
+    <td class="airport">
+      <a href="{{ product.link }}" target="_blank">
+        {{ product.airport }}
       </a>
     </td>
     <td class="icao">

@@ -39,7 +39,7 @@ public class ProductsSeedFactory
   private static string GetLinkXp11(string name) => $"{GetLink(name)}-xp11";
   private static string GetLinkXp11WithIcao(string icao) => $"{GetLinkWithIcao(icao)}-xp11";
   private static string GetIcao(string name) => name.Split(' ')[0].ToLower();
-  private static string GetNameWithoutIcao(string name) => name[(name.Split(' ')[0].Length + 1)..];
+  private static string GetAirport(string name) => name[(name.Split(' ')[0].Length + 1)..];
 
   public static List<Product> GetProducts()
   {
@@ -112,7 +112,8 @@ public class ProductsSeedFactory
     {
       Id = id,
       Icao = GetIcao(name),
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = FsxAndPrepar3d,
       CurrentPrice = currentPrice,
       Link = GetLink(name),
@@ -131,7 +132,8 @@ public class ProductsSeedFactory
     {
       Id = id,
       Icao = GetIcao(name),
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = FsxAndPrepar3d,
       CurrentPrice = currentPrice,
       Link = GetLink(name),
@@ -150,7 +152,8 @@ public class ProductsSeedFactory
     {
       Id = id,
       Icao = GetIcao(name),
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = Prepar3Dv4,
       CurrentPrice = currentPrice,
       Link = GetLink(name),
@@ -170,7 +173,8 @@ public class ProductsSeedFactory
       Icao = string.IsNullOrEmpty(icao) 
         ? GetIcao(name) 
         : icao,
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = Prepar3Dv5,
       CurrentPrice = currentPrice,
       Link = string.IsNullOrEmpty(icao) 
@@ -192,7 +196,8 @@ public class ProductsSeedFactory
       Icao = string.IsNullOrEmpty(icao) 
         ? GetIcao(name) 
         : icao,
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = Prepar3Dv5,
       CurrentPrice = currentPrice,
       Link = string.IsNullOrEmpty(icao) 
@@ -214,7 +219,8 @@ public class ProductsSeedFactory
       Icao = string.IsNullOrEmpty(icao) 
         ? GetIcao(name) 
         : icao,
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = MsFlightSimulator,
       CurrentPrice = currentPrice,
       Link = string.IsNullOrEmpty(icao) 
@@ -236,7 +242,8 @@ public class ProductsSeedFactory
       Icao = string.IsNullOrEmpty(icao) 
         ? GetIcao(name) 
         : icao,
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = XPlane11,
       CurrentPrice = currentPrice,
       Link = string.IsNullOrEmpty(icao) 
@@ -256,7 +263,8 @@ public class ProductsSeedFactory
     {
       Id = id,
       Icao = GetIcao(name),
-      Name = GetNameWithoutIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
       Platform = XPlane11,
       CurrentPrice = currentPrice,
       Link = GetLink(name),

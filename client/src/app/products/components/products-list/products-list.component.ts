@@ -12,11 +12,17 @@ import { IPagination } from '../../models/pagination';
 export class ProductsListComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   simulator: string = '';
-  public sortField: string | undefined = 'CurrentPrice';
-  public sortOrder: string = 'Desc';
+  sortField: string | undefined = 'CurrentPrice';
+  sortOrder: string = 'Desc';
+  skip: number = 0;
+  take: number = 0;
   products: IProduct[] = [];
   simulators: string[] = [];
   pagination: IPagination | null = null;
+
+  get canDisablePrevPage(): boolean {
+    return this.skip === 0;
+  }
 
   constructor(private productService: ProductsService) {}
 
@@ -29,6 +35,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
           this.pagination = this.productService.pagination;
           this.sortField = this.pagination?.sortableFields.find(x => x.isSortField)?.field;
           this.sortOrder = this.pagination?.order!;
+          this.skip = this.pagination?.skip!;
+          this.take = this.pagination?.take!;
         })
     );
   }
@@ -49,5 +57,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .getProducts(this.simulator, this.sortField!, this.sortOrder)
         .subscribe((products: IProduct[]) => this.products = products)
       );
+  }
+
+  onPrevPage() {
+    this.skip = Math.max(this.skip - this.take, 0);
+  }
+
+  onNextPage() {
+    this.skip += this.take;
   }
 }
