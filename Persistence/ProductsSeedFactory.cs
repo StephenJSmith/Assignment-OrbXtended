@@ -109,6 +109,12 @@ public class ProductsSeedFactory
       XPlane11Platform(252, "EGHI Southampton Airport", 34.95m),
       FsxAndPrepar3dPlatform(52, "EGHP Popham Airfield", 26.95m),
       XPlane11Platform(268, "EGHP Popham Airfield", 26.95m),
+      FsxAndPrepar3dPlatform(53, "EGHR Chichester / Goodwood Airport", 34.95m),
+      XPlane11Platform(257, "EGHR Chichester / Goodwood Airport", 34.95m),
+      FsxAndPrepar3dPlatform(245, "EGJA Alderney Airport", 14.95m),
+      FsxAndPrepar3dPlatform(54, "EGKA Shoreham (Brighton) Airport", 26.95m),
+      XPlane11Platform(254, "EGKA Shoreham (Brighton) Airport", 26.95m),
+      Prepar3Dv4Platform(295, "EGLC London City Airport", 32.95m)
     };
 
     return products;
@@ -148,6 +154,25 @@ public class ProductsSeedFactory
       Simulators = new List<string>() {
         Fsx, Fsxe,
         P3dv1, P3dv2, P3dv2, P3dv3, P3dv4
+      }
+    };
+
+    return product;
+  }
+
+  public static Product Prepar3Dv4Platform(int id, string name, decimal currentPrice = 0m)
+  {
+    var product = new Product
+    {
+      Id = id,
+      Icao = GetIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
+      Platform = Prepar3Dv4,
+      CurrentPrice = currentPrice,
+      Link = GetLink(name),
+      Simulators = new List<string>() {
+        P3dv4
       }
     };
 
