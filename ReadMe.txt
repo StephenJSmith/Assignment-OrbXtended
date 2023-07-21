@@ -71,9 +71,9 @@ Additional work performed ('Extended')
 - ProductsSettings endpoint returning simulators, initial pagination and sort settings
   - Both server and client
 - Call server-side paging endpoint
+- Validated returned data for each sort-pagination criteria
 
 TODO: 
-- Validate returned data for each sort-pagination criteria
 - Extract data
   - factory methods per simuators source type
   - from JSON in seeding

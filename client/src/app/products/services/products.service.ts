@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IProduct } from '../models/product';
 import { environment } from '../../../environments/environment.development';
 import { IProductsSettings } from '../models/products-settings';

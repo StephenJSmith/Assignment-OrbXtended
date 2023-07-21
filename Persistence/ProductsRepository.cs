@@ -59,9 +59,7 @@ public class ProductsRepository : IProductsRepository
     string simulator, string sortField, string sortOrder, int skipItems, int takeItems)
   {
     var expression = _products
-      .Where(p => p.Simulators.Any(s => s == simulator.ToLower()))
-      .Skip(skipItems)
-      .Take(takeItems);
+      .Where(p => p.Simulators.Any(s => s == simulator.ToLower()));
 
     var isDescendingOrder = sortOrder.ToLower() == "desc";
     var isAscendingOrder = sortOrder.ToLower() == "asc";
@@ -125,6 +123,8 @@ public class ProductsRepository : IProductsRepository
     }
 
     var results = expression
+      .Skip(skipItems)
+      .Take(takeItems)
       .ToList();
 
     return results;
