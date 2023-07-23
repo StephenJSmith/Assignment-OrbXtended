@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Domain;
+﻿namespace Domain;
 
 public class Product
 {

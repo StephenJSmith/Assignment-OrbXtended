@@ -72,9 +72,11 @@ Additional work performed ('Extended')
   - Both server and client
 - Call server-side paging endpoint
 - Validated returned data for each sort-pagination criteria
+- Deserialise json file to populate 298 Products and use prior factory methods as a try-catch backup 
 
 TODO: 
 - Extract data
-  - factory methods per simuators source type
-  - from JSON in seeding
+  - Original Data root and JSON configuration to convert to Pascal casing
   - EF relationship and use InMemoryProvider
+  - Convert Skip to page number in UX Angular client
+  - Max Page size

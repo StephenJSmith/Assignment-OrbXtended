@@ -1,4 +1,5 @@
 using Domain;
+using System.Text.Json;
 
 namespace Persistence;
 
@@ -30,7 +31,8 @@ public class ProductsSeedFactory
     return $"https://orbxdirect.com/product/{segment}";
   }
 
-  private static string GetLinkWithIcao(string icao) {
+  private static string GetLinkWithIcao(string icao)
+  {
     return $"https://orbxdirect.com/product/{icao.ToLower()}";
   }
 
@@ -40,6 +42,30 @@ public class ProductsSeedFactory
   private static string GetLinkXp11WithIcao(string icao) => $"{GetLinkWithIcao(icao)}-xp11";
   private static string GetIcao(string name) => name.Split(' ')[0].ToLower();
   private static string GetAirport(string name) => name[(name.Split(' ')[0].Length + 1)..];
+
+  public static List<Product> GetProductsFromJson()
+  {
+    var productsData = File.ReadAllText("../Persistence/seed-data-products.json");
+    productsData = productsData.Replace("\n", "");
+    productsData = productsData.Replace("\r", "");
+    var jsonProducts = JsonSerializer.Deserialize<List<JsonProduct>>(productsData);
+    var products = new List<Product>();
+    foreach (var jp in jsonProducts)
+    {
+      products.Add(new Product {
+        Id = jp.id,
+        Icao = jp.icao,
+        Name = jp.name,
+        Airport = GetAirport(jp.name),
+        Platform = jp.platform,
+        CurrentPrice = (decimal)jp.price.current,
+        Link = jp.link,
+        Simulators = jp.simulators
+      });
+    }
+
+    return products;
+  }
 
   public static List<Product> GetProducts()
   {
@@ -203,15 +229,15 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Icao = string.IsNullOrEmpty(icao) 
-        ? GetIcao(name) 
+      Icao = string.IsNullOrEmpty(icao)
+        ? GetIcao(name)
         : icao,
       Name = name,
       Airport = GetAirport(name),
       Platform = Prepar3Dv5,
       CurrentPrice = currentPrice,
-      Link = string.IsNullOrEmpty(icao) 
-      ? GetLinkMsfs(name) 
+      Link = string.IsNullOrEmpty(icao)
+      ? GetLinkMsfs(name)
       : GetLinkWithIcao(icao),
       Simulators = new List<string> {
         P3dv5
@@ -226,15 +252,15 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Icao = string.IsNullOrEmpty(icao) 
-        ? GetIcao(name) 
+      Icao = string.IsNullOrEmpty(icao)
+        ? GetIcao(name)
         : icao,
       Name = name,
       Airport = GetAirport(name),
       Platform = Prepar3Dv5,
       CurrentPrice = currentPrice,
-      Link = string.IsNullOrEmpty(icao) 
-      ? GetLinkMsfs(name) 
+      Link = string.IsNullOrEmpty(icao)
+      ? GetLinkMsfs(name)
       : GetLinkWithIcao(icao),
       Simulators = new List<string> {
         P3dv4, P3dv5
@@ -249,15 +275,15 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Icao = string.IsNullOrEmpty(icao) 
-        ? GetIcao(name) 
+      Icao = string.IsNullOrEmpty(icao)
+        ? GetIcao(name)
         : icao,
       Name = name,
       Airport = GetAirport(name),
       Platform = MsFlightSimulator,
       CurrentPrice = currentPrice,
-      Link = string.IsNullOrEmpty(icao) 
-      ? GetLinkMsfs(name) 
+      Link = string.IsNullOrEmpty(icao)
+      ? GetLinkMsfs(name)
       : GetLinkMsfsWithIcao(icao),
       Simulators = new List<string> {
         Msfs
@@ -272,15 +298,15 @@ public class ProductsSeedFactory
     var product = new Product
     {
       Id = id,
-      Icao = string.IsNullOrEmpty(icao) 
-        ? GetIcao(name) 
+      Icao = string.IsNullOrEmpty(icao)
+        ? GetIcao(name)
         : icao,
       Name = name,
       Airport = GetAirport(name),
       Platform = XPlane11,
       CurrentPrice = currentPrice,
-      Link = string.IsNullOrEmpty(icao) 
-      ? GetLinkXp11(name) 
+      Link = string.IsNullOrEmpty(icao)
+      ? GetLinkXp11(name)
       : GetLinkXp11WithIcao(icao),
       Simulators = new List<string> {
         Xp11

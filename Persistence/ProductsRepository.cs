@@ -28,8 +28,16 @@ public class ProductsRepository : IProductsRepository
 
   public ProductsRepository()
   {
-    _products = ProductsSeedFactory.GetProducts();
     _simulators = GetSeededSimulators();
+  
+    try
+    {
+      _products = ProductsSeedFactory.GetProductsFromJson();  
+    }
+    catch (System.Exception)
+    {
+      _products = ProductsSeedFactory.GetProducts();
+    }
   }
 
   public List<Product> GetProducts()
