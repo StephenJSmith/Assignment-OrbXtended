@@ -1,7 +1,7 @@
 using Domain;
 using System.Text.Json;
 
-namespace Persistence;
+namespace Persistence.Seed;
 
 public class ProductsSeedFactory
 {
@@ -22,6 +22,7 @@ public class ProductsSeedFactory
   private static string Prepar3Dv5 = "Prepar3D v5";
   private static string MsFlightSimulator = "Microsoft Flight Simulator";
   private static string XPlane11 = "X-Plane 11";
+  private static string AeroflyFS2 = "afs2";
 
   private static string GetLink(string name)
   {
@@ -40,17 +41,16 @@ public class ProductsSeedFactory
   private static string GetLinkMsfsWithIcao(string icao) => $"{GetLinkWithIcao(icao)}-msfs";
   private static string GetLinkXp11(string name) => $"{GetLink(name)}-xp11";
   private static string GetLinkXp11WithIcao(string icao) => $"{GetLinkWithIcao(icao)}-xp11";
+  private static string GetLinkAfs2(string name) => $"{GetLink(name)}-afs2";
   private static string GetIcao(string name) => name.Split(' ')[0].ToLower();
   private static string GetAirport(string name) => name[(name.Split(' ')[0].Length + 1)..];
 
-  public static List<Product> GetProductsFromJson()
+  public static List<Product> GetProductsFromJsonData()
   {
-    var productsData = File.ReadAllText("../Persistence/seed-data-products.json");
-    productsData = productsData.Replace("\n", "");
-    productsData = productsData.Replace("\r", "");
-    var jsonProducts = JsonSerializer.Deserialize<List<JsonProduct>>(productsData);
+    var productsData = File.ReadAllText("../Persistence/Seed/seed-data.json");
+    var jsonProductsData = JsonSerializer.Deserialize<JsonProductsData>(productsData);
     var products = new List<Product>();
-    foreach (var jp in jsonProducts)
+    foreach (var jp in jsonProductsData.data)
     {
       products.Add(new Product {
         Id = jp.id,
@@ -67,7 +67,7 @@ public class ProductsSeedFactory
     return products;
   }
 
-  public static List<Product> GetProducts()
+  public static List<Product> GetProductsFromFactoryMethods()
   {
     var products = new List<Product>
     {
@@ -140,7 +140,12 @@ public class ProductsSeedFactory
       FsxAndPrepar3dPlatform(245, "EGJA Alderney Airport", 14.95m),
       FsxAndPrepar3dPlatform(54, "EGKA Shoreham (Brighton) Airport", 26.95m),
       XPlane11Platform(254, "EGKA Shoreham (Brighton) Airport", 26.95m),
-      Prepar3Dv4Platform(295, "EGLC London City Airport", 32.95m)
+      Prepar3Dv4Platform(295, "EGLC London City Airport", 32.95m),
+      MsFlightSimulatorPlatform(407, "EGLC London City Airport", 20.99m),
+      XPlane11Platform(284, "EGLC London City Airport", 20.99m),
+      FsxAndPrepar3dPlatform(55, "EGML Damyns Hall Aerodrome", 26.95m),
+      XPlane11Platform(267, "EGML Damyns Hall Aerodrome", 26.95m),
+      AeroflyFS2Platform(191, "KCGX Merrill C. Meigs Field", 29.95m)
     };
 
     return products;
@@ -257,7 +262,7 @@ public class ProductsSeedFactory
         : icao,
       Name = name,
       Airport = GetAirport(name),
-      Platform = Prepar3Dv5,
+      Platform = Prepara3Dv4Plus,
       CurrentPrice = currentPrice,
       Link = string.IsNullOrEmpty(icao)
       ? GetLinkMsfs(name)
@@ -329,6 +334,23 @@ public class ProductsSeedFactory
       Link = GetLink(name),
       Simulators = new List<string> {
         Xp11
+      }
+    };
+
+    return product;
+  }
+
+  public static Product AeroflyFS2Platform(int id, string name, decimal currentPrice) {
+    var product = new Product {
+      Id = id,
+      Icao = GetIcao(name),
+      Name = name,
+      Airport = GetAirport(name),
+      Platform = AeroflyFS2,
+      CurrentPrice = currentPrice,
+      Link = GetLinkAfs2(name),
+      Simulators = new List<string> {
+        Afs2
       }
     };
 

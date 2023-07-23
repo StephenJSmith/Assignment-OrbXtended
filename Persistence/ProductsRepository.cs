@@ -1,4 +1,5 @@
 using Domain;
+using Persistence.Seed;
 
 namespace Persistence;
 
@@ -32,11 +33,11 @@ public class ProductsRepository : IProductsRepository
   
     try
     {
-      _products = ProductsSeedFactory.GetProductsFromJson();  
+      _products = ProductsSeedFactory.GetProductsFromJsonData();  
     }
     catch (System.Exception)
     {
-      _products = ProductsSeedFactory.GetProducts();
+      _products = ProductsSeedFactory.GetProductsFromFactoryMethods();
     }
   }
 

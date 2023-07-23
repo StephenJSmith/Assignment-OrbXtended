@@ -1,4 +1,4 @@
-namespace Persistence;
+namespace Persistence.Seed;
 
 public class JsonProduct {
   public int id { get; set; }
@@ -9,6 +9,10 @@ public class JsonProduct {
   public string image_header { get; set; }
   public Price price { get; set; }
   public string link { get; set; }
+}
+
+public class JsonProductsData {
+  public List<JsonProduct> data { get; set; }
 }
 
 public class Price {
