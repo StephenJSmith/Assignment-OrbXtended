@@ -6,6 +6,7 @@ public class ProductSettingsDto {
   public string Order { get; set; }
   public int Skip { get; set; }
   public int Take { get; set; }
+  public int MaxTake { get; set; }
 }
 
 public class SortableField {

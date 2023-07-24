@@ -74,8 +74,8 @@ Additional work performed ('Extended')
 - Validated returned data for each sort-pagination criteria
 - Deserialise json file to populate 298 Products and use prior factory methods as a try-catch backup 
 - Show page number in Angular form - Reset to page 1 when any change in page size (take)
+- Max Page Size in appsettings and applied in Handler and Angular form 
 
 TODO: 
 - Extract data
   - EF relationship and use InMemoryProvider
-  - Max Page size

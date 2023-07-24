@@ -90,5 +90,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   onChangePageSize() {
     this.skip = 0;
+
+    if (this.take > this.settings?.maxTake!) {
+      this.take = this.settings?.maxTake!;
+    }
   }
 }

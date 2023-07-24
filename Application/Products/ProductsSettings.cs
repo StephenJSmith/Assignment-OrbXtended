@@ -13,6 +13,7 @@ public class ProductsSettings
     public string DefaultSortOrder { get; set; }
     public int DefaultSkipItems { get; set; }
     public int DefaultTakeItems { get; set; }
+    public int MaxTakeItems { get; set; }
   }
 
   public class Handler : IRequestHandler<Query, Result<ProductSettingsDto>>
@@ -46,7 +47,8 @@ public class ProductsSettings
         SortableFields = sortableFields,
         Order = request.DefaultSortOrder,
         Skip = request.DefaultSkipItems,
-        Take = request.DefaultTakeItems
+        Take = request.DefaultTakeItems,
+        MaxTake = request.MaxTakeItems
       };
 
       return Result<ProductSettingsDto>.Success(result);

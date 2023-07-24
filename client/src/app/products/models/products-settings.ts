@@ -4,6 +4,7 @@ export interface IProductsSettings {
   order: string;
   skip: number;
   take: number;
+  maxTake: number;
 }
 
 export interface ISortableField {

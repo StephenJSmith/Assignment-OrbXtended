@@ -13,6 +13,7 @@ public class ProductsController : BaseApiController
   private readonly string _defaultSortOrder;
   private readonly int _defaultSkipItems;
   private readonly int _defaultTakeItems;
+  private readonly int _maxTakeItems;
 
   public ProductsController(
     IConfiguration configuration)
@@ -22,6 +23,7 @@ public class ProductsController : BaseApiController
     _defaultSortOrder = _configuration["TopProducts:SortOrder"];
     _defaultSkipItems = int.Parse(_configuration["TopProducts:SkipItems"]);
     _defaultTakeItems = int.Parse(_configuration["TopProducts:TakeItems"]);
+    _maxTakeItems = int.Parse(_configuration["TopProducts:MaxTakeItems"]);
   }
 
   [HttpGet()]
@@ -36,7 +38,8 @@ public class ProductsController : BaseApiController
       DefaultSortField = _defaultSortField,
       DefaultSortOrder = _defaultSortOrder,
       DefaultSkipItems = _defaultSkipItems,
-      DefaultTakeItems = _defaultTakeItems
+      DefaultTakeItems = _defaultTakeItems,
+      MaxTakeItems = _maxTakeItems
     });
 
     return HandleResult(result);
@@ -71,7 +74,8 @@ public class ProductsController : BaseApiController
       SortField = sort.OrDefaultValue(_defaultSortField),
       SortOrder = order.OrDefaultValue(_defaultSortOrder),
       SkipItems = skip.OrDefaultValue(_defaultSkipItems),
-      TakeItems = take.OrDefaultValue(_defaultTakeItems)
+      TakeItems = take.OrDefaultValue(_defaultTakeItems),
+      MaxTakeItems = _maxTakeItems
     };
 
     var result = await Mediator.Send(new ListProductsForSimulator.Query
@@ -80,7 +84,8 @@ public class ProductsController : BaseApiController
       SortField = page.SortField,
       SortOrder = page.SortOrder,
       SkipItems = page.SkipItems,
-      TakeItems = page.TakeItems
+      TakeItems = page.TakeItems,
+      MaxTakeItems = page.MaxTakeItems
     });
 
     return HandleResult(result);

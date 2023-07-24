@@ -14,6 +14,7 @@ public class ListProductsForSimulator
     public string SortOrder { get; set; }
     public int SkipItems { get; set; }
     public int TakeItems { get; set; }
+    public int MaxTakeItems { get; set; }
   }
 
   public class Handler : IRequestHandler<Query, Result<List<Product>>>
@@ -34,7 +35,7 @@ public class ListProductsForSimulator
         request.SortField, 
         request.SortOrder, 
         request.SkipItems,
-        request.TakeItems
+        Math.Min(request.TakeItems, request.MaxTakeItems)
       );
 
       return Result<List<Product>>.Success(result);
