@@ -39,7 +39,7 @@
   <label>{{pageNumber}}</label>  
 
   <label class="selection-label">Size</label>
-  <input class="numeric-input" type="number" min="0" [(ngModel)]="take" />
+  <input class="numeric-input" type="number" min="0" [(ngModel)]="take" (ngModelChange)="onChangePageSize()" />
 
   <label class="selection-label">Skip</label>
   <input class="numeric-input" type="number" min="0" [(ngModel)]="skip" />

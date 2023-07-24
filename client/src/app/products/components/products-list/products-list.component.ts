@@ -87,4 +87,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   onNextPage() {
     this.skip += this.take;
   }
+
+  onChangePageSize() {
+    this.skip = 0;
+  }
 }

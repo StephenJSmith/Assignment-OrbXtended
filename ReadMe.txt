@@ -73,10 +73,9 @@ Additional work performed ('Extended')
 - Call server-side paging endpoint
 - Validated returned data for each sort-pagination criteria
 - Deserialise json file to populate 298 Products and use prior factory methods as a try-catch backup 
+- Show page number in Angular form - Reset to page 1 when any change in page size (take)
 
 TODO: 
 - Extract data
-  - Original Data root and JSON configuration to convert to Pascal casing
   - EF relationship and use InMemoryProvider
-  - Convert Skip to page number in UX Angular client
   - Max Page size
