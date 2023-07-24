@@ -20,12 +20,20 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   settings: IProductsSettings | null = null;
   canShowSelections: boolean = false;
 
+  get pageNumber(): number {
+    return Math.floor(this.skip / this.take) + 1;
+  }
+
   get canDisableFirstPage(): boolean {
     return this.skip <= 0;
   }
 
   get canDisablePrevPage(): boolean {
     return this.skip <= 0;
+  }
+
+  get canDisableSearch(): boolean {
+    return !this.simulator;
   }
 
   constructor(private productService: ProductsService) {}

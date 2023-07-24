@@ -35,13 +35,16 @@
   <button class="page-button" [disabled]="canDisablePrevPage" (click)="onPrevPage()">Prev</button>
   <button class="page-button" (click)="onNextPage()">Next</button>
 
-  <label class="selection-label">Page Size</label>
+  <label class="selection-label">Number</label>
+  <label>{{pageNumber}}</label>  
+
+  <label class="selection-label">Size</label>
   <input class="numeric-input" type="number" min="0" [(ngModel)]="take" />
 
   <label class="selection-label">Skip</label>
   <input class="numeric-input" type="number" min="0" [(ngModel)]="skip" />
 
-  <button class="search-button" (click)="onSearch()">Search</button>
+  <button class="search-button" [disabled]="canDisableSearch" (click)="onSearch()">Search</button>
 </div>
 
 <table class="products-list">
